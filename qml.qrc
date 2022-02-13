@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Console.qml</file>
+        <file>OptionsArea.qml</file>
+        <file>ListButton.qml</file>
+        <file>script.js</file>
+        <file>SelectApp.qml</file>
+        <file>ConfigDirectory.qml</file>
+        <file>CustomText.qml</file>
+    </qresource>
+</RCC>

@@ -14,6 +14,8 @@ public:
     void execute(QString command);
 signals:
     void sigCommandResult(QString result);
+public slots:
+    void receiveMessage();
 private:
     Process();
     QProcess qProcess;

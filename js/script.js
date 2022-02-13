@@ -1,5 +1,4 @@
 function setAppSelected(app) {
-    console.log("setAppSelected " + appSelected)
     setTextFieldFocus(false)
     switch(app) {
     case 0:
@@ -19,6 +18,7 @@ function setAppSelected(app) {
         console.log("click" + appSelected)
         break
     }
+    console.log("setAppSelected " + appSelected)
 }
 
 function setTextFieldFocus(focus) {
@@ -30,7 +30,7 @@ function addText(result) {
     console.log(result)
     console.log("addText")
 //    content.insert(0, "\n")
-    content.insert(0, result)
+    content.insert(content.text.length, result)
 }
 
 function setPath(path) {
@@ -43,3 +43,4 @@ function setPath(path) {
 function print2(path) {
     console.log("print: " + path)
 }
+

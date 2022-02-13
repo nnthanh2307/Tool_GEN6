@@ -26,7 +26,15 @@ GroupBox {
             target: Process
             function onSigCommandResult(result) {
                 console.log("onSigCommandResult")
-                Script.addText(result)
+                console.log(result)
+                content.insert(content.text.length, result)
+            }
+        }
+
+        Connections {
+            target: ManagerQML
+            function onClearLog() {
+                content.clear()
             }
         }
     }

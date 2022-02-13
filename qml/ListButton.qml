@@ -11,7 +11,8 @@ Item {
         Button {
             text: "Build Application"
             onClicked: {
-                ManagerQML.runCommand("ls /home/")
+                ManagerQML.runCommand(appSelected)
+//                ManagerQML.runCommand("ping 192.168.1.1")
             }
         }
 
@@ -26,6 +27,13 @@ Item {
             text: "Push Code to Build"
             onClicked: {
                 //                ManagerQML.runCommand("ls /home/")
+            }
+        }
+
+        Button {
+            text: "Clear Log"
+            onClicked: {
+               ManagerQML.clearLog()
             }
         }
 

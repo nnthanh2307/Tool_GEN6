@@ -20,10 +20,15 @@ void Process::execute(QString command)
 {
     qDebug() << "run command";
     qProcess.setWorkingDirectory("/bin/");
-    qProcess.start("bash", QStringList() << "-c" << "cat /home/ngocthanh/cv_debug.log");
-    qProcess.waitForFinished(-1);
-//    qProcess.execute("bash", QStringList() << "-c" << "ls /home/");
-   QString result = qProcess.readAllStandardOutput();
-   qDebug() << result;
-   emit sigCommandResult(result);
+    qProcess.start("bash", QStringList() << "-c" << command);
+//    qProcess.waitForStarted();
+   connect( &qProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(receiveMessage()));
+//   qProcess.waitForFinished();
+}
+
+void Process::receiveMessage()
+{
+    QString result = qProcess.readAllStandardOutput();
+//    qDebug() << result;
+    emit sigCommandResult(result);
 }

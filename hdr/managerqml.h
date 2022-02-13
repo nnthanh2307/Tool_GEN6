@@ -15,6 +15,8 @@ public:
     Q_INVOKABLE void runCommand(QString command);
     Q_INVOKABLE void buidApp(QString appName);
     Q_INVOKABLE void pullRPM(QString appName);
+signals:
+    void clearLog();
 };
 
 #define MANAGERQML ManagerQML::getInstance()

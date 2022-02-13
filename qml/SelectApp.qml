@@ -30,7 +30,7 @@ Rectangle {
 
             TextField {
                 id: textField
-                signal keyPressed
+                signal keyPressed()
                 placeholderText: qsTr("Enter application name")
                 cursorVisible: true
                 enabled: false
@@ -40,7 +40,9 @@ Rectangle {
                     color: textField.enabled ? "transparent" : "#353637"
                     border.color: textField.enabled ? "#21be2b" : "transparent"
                 }
-                Keys.onReleased: keyPressed()
+                Keys.onReleased:  {
+                    textField.keyPressed()
+                }
             }
         }
     }
@@ -50,6 +52,7 @@ Rectangle {
         target: textField
         function onKeyPressed() {
             appSelected = textField.text
+//            console.log(appSelected)
         }
     }
 }

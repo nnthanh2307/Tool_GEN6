@@ -4,7 +4,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.15
 import Qt.labs.platform 1.1
 
-import "script.js" as Script
+import "../js/script.js" as Script
 
 Rectangle {
     id: configDirectory

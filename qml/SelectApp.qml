@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.15
-import "script.js" as Script
+import "../js/script.js" as Script
 
 Rectangle {
     id: selectApp
@@ -43,10 +43,7 @@ Rectangle {
                 Keys.onReleased: keyPressed()
             }
         }
-
-
     }
-
 
 
     Connections {

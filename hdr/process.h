@@ -14,6 +14,7 @@ public:
     void runScript(QString file);
     void buildApp(QString devUser, QString appName);
     Q_INVOKABLE void downloadRPM(QString devUser, QString appName);
+    Q_INVOKABLE void flashRPM(QString devUser, QString appName);
     Q_INVOKABLE void setSourcePath(QString path);
     Q_INVOKABLE void setDownloadPath(QString path);
 

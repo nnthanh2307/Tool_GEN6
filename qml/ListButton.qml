@@ -54,9 +54,14 @@ Item {
         }
 
         Button {
-            text: "Flash"
+            text: "Flash RPM"
             onClicked: {
-
+                if (downloadPath == "" || devUser == "" || appSelected == "") {
+                    message.text = "Source path, Developer user or Download path is empty!"
+                    message.open()
+                } else {
+                    Process.flashRPM(devUser, appSelected)
+                }
             }
         }
 

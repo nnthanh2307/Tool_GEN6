@@ -44,6 +44,16 @@ void Process::downloadRPM(QString devUser, QString appName)
     this->runScript("run.py");
 }
 
+void Process::flashRPM(QString devUser, QString appName)
+{
+    qDebug() << "Process::flashRPM " << devUser << " " << appName;
+    this->userName = devUser;
+    this->appName = appName;
+    this->action = "flash";
+    this->sourcePath = "empty";
+    this->runScript("run.py");
+}
+
 void Process::setSourcePath(QString path)
 {
     qDebug() << "Process::setSourcePath";
@@ -76,4 +86,8 @@ void Process::receiveError()
 {
     qDebug() << "Process::receiveError";
     QString error = qProcess.readAllStandardOutput();
+<<<<<<< HEAD
+=======
+    qDebug() << error;
+>>>>>>> commit n
 }

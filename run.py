@@ -64,8 +64,8 @@ class Connection:
         print ("connection::donwloadRPM")
         cmd = "find " + REMOTE_RPM_PATH + " -iname " + "\"" + appName + "*.rpm"  + "\""
         print(cmd)
-        result = self.runCommand(cmd)
-        self.printConsole(result)
+        # result = self.runCommand(cmd)
+        # self.printConsole(result)
 
         # for item in result.readlines():
         #     self.downloadFile(item.rstrip(), DOWNLOAD_PATH)
@@ -137,20 +137,21 @@ class Process:
         #BENCH
         self.connect = Connection(BENCH_IP, BENCH_USER, BENCH_PASS)
         print ("Push file to test bench.....")
-        # self.pushToBench()
-        print ("Flashing.......")
+        self.pushToBench()
+        print ("===== Flashing =====")
         cmdFlash = "cd " + BENCH_RPM_DIR + ";" + MOUNT_COMMAND + ";" + INSTALL_RPM + APP_NAME + "*.rpm"
-        flashResult = self.connect.runCommand(cmdFlash)
-        self.connect.printConsole(flashResult)
+        print(cmdFlash)
+        # flashResult = self.connect.runCommand(cmdFlash)
+        # self.connect.printConsole(flashResult)
         pass
     
     def pushToBench(self):
-        print ("Process::pushtoBench")
+        # print ("Process::pushtoBench")
         os.chdir(DOWNLOAD_PATH)
         listFile = glob.glob("*.txt")
         for item in listFile:
-            self.connect.uploadFile(item, DOWNLOAD_PATH)
-            print (item)
+            # self.connect.uploadFile(item, DOWNLOAD_PATH)
+            print (item, "is pushing...")
         pass
 
     def run(self, action):

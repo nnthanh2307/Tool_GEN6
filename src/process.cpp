@@ -86,8 +86,5 @@ void Process::receiveError()
 {
     qDebug() << "Process::receiveError";
     QString error = qProcess.readAllStandardOutput();
-<<<<<<< HEAD
-=======
     qDebug() << error;
->>>>>>> commit n
 }

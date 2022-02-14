@@ -19,5 +19,20 @@ Rectangle {
         anchors.top: selectApp.bottom
     }
 
+    Connections {
+        target: directory
+        function onChangeDownloadPath(path) {
+            downloadPath = path
+            Process.setDownloadPath(downloadPath)
+        }
+    }
+
+    Connections {
+        target: directory
+        function onChangeSourcePath(path) {
+            sourcePath = path
+            Process.setSourcePath(downloadPath)
+        }
+    }
 
 }

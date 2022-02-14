@@ -9,6 +9,8 @@ import "../js/script.js" as Script
 Rectangle {
     id: configDirectory
     width: parent.width
+    signal changeDownloadPath(string path)
+    signal changeSourcePath(string path)
     GroupBox {
         title: "Set source code and download path"
         anchors.fill: parent
@@ -62,8 +64,8 @@ Rectangle {
         id: sourceDialog
         folder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
         onAccepted: {
-            sourcePath = Script.setPath(sourceDialog.folder.toString())
-            sourceP.text = sourcePath
+            sourceP.text = Script.setPath(sourceDialog.folder.toString())
+            configDirectory.changeSourcePath(sourceP.text)
         }
     }
 
@@ -71,8 +73,8 @@ Rectangle {
         id: downloadDialog
         folder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
         onAccepted: {
-            downloadPath = Script.setPath(downloadDialog.folder.toString())
-            downloadP.text = downloadPath
+            downloadP.text = Script.setPath(downloadDialog.folder.toString())
+            configDirectory.changeDownloadPath(downloadP.text)
         }
     }
 }

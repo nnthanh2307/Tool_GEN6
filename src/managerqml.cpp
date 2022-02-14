@@ -14,16 +14,26 @@ ManagerQML* ManagerQML::getInstance()
 void ManagerQML::runCommand(QString command)
 {
     qDebug() << "ManagerQML::runCommand() " << command;
-    PROCESS->runCommand(command);
+//    PROCESS->runCommand(command);
+//    PROCESS->runScript(command);
 }
 
-void ManagerQML::buidApp(QString appName)
+void ManagerQML::runScript(QString file, QString command)
+{
+    qDebug() << "ManagerQML::runScript(): file:" << file << " command:" << command;
+//    PROCESS->runScript(file, command);
+}
+
+void ManagerQML::buildApp(QString devUser, QString appName)
 {
     qDebug() << "ManagerQML::buidApp " << appName;
+    PROCESS->buildApp(devUser, appName);
 
 }
 
-void ManagerQML::pullRPM(QString appName)
+void ManagerQML::downloadRPM(QString devUser, QString appName)
 {
+    qDebug() << "ManagerQML::downloadRPM ";
+    PROCESS->downloadRPM(devUser, appName);
 
 }

@@ -11,35 +11,66 @@ Item {
         Button {
             text: "Build Application"
             onClicked: {
-                ManagerQML.runCommand(appSelected)
-//                ManagerQML.runCommand("ping 192.168.1.1")
+                if (appSelected == "" || devUser == "") {
+                    message.text = "Please select app to build!"
+                    message.open()
+                } else {
+                    ManagerQML.buildApp(devUser, appSelected)
+                }
             }
         }
 
         Button {
-            text: "Pull RPM"
+            text: "Download RPM"
             onClicked: {
-                //                ManagerQML.runCommand("ls /home/")
+                console.log("click Download: "+ downloadPath)
+                if (downloadPath == "" || devUser == "" || appSelected == "") {
+                    if(downloadPath == "")
+                        message.text = "Download path is empty!"
+                    else
+                        message.text = "Developer user is empty!"
+                    message.open()
+                } else {
+                    Process.downloadRPM(devUser, appSelected)
+                }
+
             }
         }
 
         Button {
             text: "Push Code to Build"
             onClicked: {
-                //                ManagerQML.runCommand("ls /home/")
+                console.log("click Download: "+ downloadPath)
+                if (sourcePath == "" || devUser == "") {
+                    if(sourcePath == "")
+                        message.text = "Source path is empty!"
+                    else
+                        message.text = "Developer user is empty!"
+                    message.open()
+                } else {
+                    //                    Process.downloadRPM(devUser, appSelected)
+                }
+            }
+        }
+
+        Button {
+            text: "Flash"
+            onClicked: {
+
             }
         }
 
         Button {
             text: "Clear Log"
             onClicked: {
-               ManagerQML.clearLog()
+                ManagerQML.clearLog()
             }
         }
 
     }
 
-
-
-
+    MessageDialog {
+        id: message
+        buttons: MessageDialog.Ok
+    }
 }

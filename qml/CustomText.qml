@@ -7,6 +7,7 @@ import "../js/script.js" as Script
 TextField {
     id: textField
     signal keyPressed
+    readOnly: true
     placeholderText: qsTr("Enter application name")
 //    enabled: false
     background: Rectangle {

@@ -29,19 +29,35 @@ Rectangle {
             }
 
             TextField {
-                id: textField
+                id: textField1
                 signal keyPressed()
                 placeholderText: qsTr("Enter application name")
                 cursorVisible: true
                 enabled: false
                 background: Rectangle {
-                    implicitWidth: 500
+                    implicitWidth: 300
                     implicitHeight: 40
-                    color: textField.enabled ? "transparent" : "#353637"
-                    border.color: textField.enabled ? "#21be2b" : "transparent"
+                    color: textField1.enabled ? "transparent" : "#353637"
+                    border.color: textField1.enabled ? "#21be2b" : "transparent"
                 }
                 Keys.onReleased:  {
-                    textField.keyPressed()
+                    textField1.keyPressed()
+                }
+            }
+
+            TextField {
+                id: developerUser
+                signal keyPressed()
+                placeholderText: qsTr("Developer User")
+                cursorVisible: true
+                background: Rectangle {
+                    implicitWidth: 220
+                    implicitHeight: 40
+                    color: developerUser.enabled ? "transparent" : "#353637"
+                    border.color: developerUser.enabled ? "#21be2b" : "transparent"
+                }
+                Keys.onReleased:  {
+                    developerUser.keyPressed()
                 }
             }
         }
@@ -49,10 +65,16 @@ Rectangle {
 
 
     Connections {
-        target: textField
+        target: textField1
         function onKeyPressed() {
-            appSelected = textField.text
-//            console.log(appSelected)
+            appSelected = textField1.text
+        }
+    }
+
+    Connections {
+        target: developerUser
+        function onKeyPressed() {
+            devUser = developerUser.text
         }
     }
 }

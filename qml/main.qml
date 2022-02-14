@@ -8,13 +8,14 @@ ApplicationWindow {
     width: 1280
     height: 800
     visible: true
-    title: qsTr("HKMC-GEN6 Tools Ngoc Thanh LGE")
-
+    title: qsTr("Ngoc Thanh UET")
+    id: window
     property var listApp: ["Android Auto", "Android Auto Service", "CarPlay", "CarPlay Service", "Other App"]
     property var appSelected: ""
     property var systemMargin: 10
     property var sourcePath: ""
     property var downloadPath: ""
+    property var devUser: ""
 
     Rectangle {
         id: col

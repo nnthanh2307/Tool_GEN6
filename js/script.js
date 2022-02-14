@@ -22,8 +22,8 @@ function setAppSelected(app) {
 }
 
 function setTextFieldFocus(focus) {
-    textField.enabled = focus
-    textField.focus = focus
+    textField1.enabled = focus
+    textField1.focus = focus
 }
 
 function addText(result) {

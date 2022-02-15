@@ -13,14 +13,16 @@ Process *Process::getInstance()
 
 void Process::runScript(QString file)
 {
+    connect( &qProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(receiveMessage()));
+    connect( &qProcess, SIGNAL(readyReadStandardError()), this, SLOT(receiveError()));
+
     qDebug() << "run Script: file name => " << file;
     QString run = "python3 " + scriptPath  + " " + userName + " " + appName + " " + sourcePath + " " + downloadPath + " " + action ;
     qDebug() << run;
     qProcess.setWorkingDirectory("/bin/");
     qProcess.start("bash", QStringList() << "-c" << run);
 
-    connect( &qProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(receiveMessage()));
-    connect( &qProcess, SIGNAL(readyReadStandardError()), this, SLOT(receiveError()));
+
 }
 
 void Process::buildApp(QString devUser, QString appName)
@@ -80,6 +82,7 @@ void Process::receiveMessage()
 {
     QString output = qProcess.readAllStandardOutput();
     emit sigCommandResult(output);
+    qProcess.kill();
 }
 
 void Process::receiveError()
@@ -87,4 +90,5 @@ void Process::receiveError()
     qDebug() << "Process::receiveError";
     QString error = qProcess.readAllStandardOutput();
     qDebug() << error;
+    qProcess.kill();
 }

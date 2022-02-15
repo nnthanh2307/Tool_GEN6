@@ -25,8 +25,8 @@ MOUNT_COMMAND = "mount -o remount, rw /"
 INSTALL_RPM = "rpm -ivh --force --nodeps "
 REBOOT_COMMAND = "reboot"
 
-# DOWNLOAD_PATH = DOWNLOAD_SOURCE
-# REMOTE_RPM_PATH = "/data001/" + DEV_USER + "/build-cocconut/BUILD/deploy/rpm/aarch64/"
+DOWNLOAD_PATH = DOWNLOAD_SOURCE
+REMOTE_RPM_PATH = "/data001/" + DEV_USER + "/build-coconut/BUILD/deploy/rpm/aarch64/"
 
 DOWNLOAD_PATH = "/home/ngocthanh/Desktop/Download/"
 REMOTE_RPM_PATH = "/home/ubuntu/Developer/"
@@ -49,7 +49,7 @@ class Connection:
         print ("Connection::downloadFile")
         sftp = self.ssh.open_sftp()
         try:
-            remoteFile = REMOTE_RPM_PATH + fileName
+            remoteFile = BENCH_RPM_DIR + fileName
             localFile = DOWNLOAD_PATH + fileName
             # self.printConsole(remoteFile + localFile)
             sftp.get(remoteFile, localFile)
@@ -62,14 +62,13 @@ class Connection:
 
     def downLoadRPM(self, appName):
         print ("connection::donwloadRPM")
-        cmd = "find " + REMOTE_RPM_PATH + " -iname " + "\"" + appName + "*.rpm"  + "\""
+        cmd = "find " + REMOTE_RPM_PATH + " -iname " + "\"" + appName + "-*.rpm"  + "\""
         print(cmd)
-        # result = self.runCommand(cmd)
+        result = self.runCommand(cmd)
         # self.printConsole(result)
-
-        # for item in result.readlines():
-        #     self.downloadFile(item.rstrip(), DOWNLOAD_PATH)
-        # self.closeConnect()
+        for item in result.readlines():
+            self.downloadFile(item.rstrip(), DOWNLOAD_PATH)
+        self.closeConnect()
         pass
 
 
@@ -79,13 +78,11 @@ class Connection:
             sftp = self.ssh.open_sftp()
             remoteFile = REMOTE_RPM_PATH + fileName
             localFile = DOWNLOAD_PATH + fileName
-            print (remoteFile)
-            print (localFile)
-            sftp.put(localFile, remoteFile);
+            sftp.put(localFile, remoteFile)
             sftp.close()
             pass
         except Exception as e:
-            # sftp.close()
+            sftp.close()
             print ("Upload error: ", e)
             sys.exit()
 
@@ -103,7 +100,6 @@ class Connection:
             print(line.rstrip())
         pass
 
-
     def closeConnect(self):
         self.ssh.close()
         pass
@@ -115,14 +111,12 @@ class Process:
     
     def buildRPM(self, appName):
         print ("Process::buildRPM")
-        #init connection
         self.connect = Connection(SERVER_IP, SERVER_USER, SERVER_PASS)
         cmd = "cd /data001/"+ DEV_USER + "/build-cocconut;" + ". oe-init-build-env;" + "bitbake " + APP_NAME
         # print (cmd)
         result = self.connect.runCommand(cmd)
         self.connect.printConsole(result)
         pass
-
 
     def download(self, appName):
         print ("Process::download")
@@ -139,10 +133,10 @@ class Process:
         print ("Push file to test bench.....")
         self.pushToBench()
         print ("===== Flashing =====")
-        cmdFlash = "cd " + BENCH_RPM_DIR + ";" + MOUNT_COMMAND + ";" + INSTALL_RPM + APP_NAME + "*.rpm"
-        print(cmdFlash)
-        # flashResult = self.connect.runCommand(cmdFlash)
-        # self.connect.printConsole(flashResult)
+        cmdFlash = "cd " + BENCH_RPM_DIR + "; " + MOUNT_COMMAND + "; " + INSTALL_RPM + APP_NAME + "-*.rpm"
+        # print(cmdFlash)
+        flashResult = self.connect.runCommand(cmdFlash)
+        self.connect.printConsole(flashResult)
         pass
     
     def pushToBench(self):
@@ -150,7 +144,7 @@ class Process:
         os.chdir(DOWNLOAD_PATH)
         listFile = glob.glob("*.txt")
         for item in listFile:
-            # self.connect.uploadFile(item, DOWNLOAD_PATH)
+            self.connect.uploadFile(item, DOWNLOAD_PATH)
             print (item, "is pushing...")
         pass
 
@@ -163,7 +157,6 @@ class Process:
         elif (action == "flash"):
             self.flashRPM(APP_NAME)
         pass
-
 
 if __name__ == "__main__":
 
